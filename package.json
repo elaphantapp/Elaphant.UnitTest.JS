@@ -12,9 +12,14 @@
         "bootstrap": "^4.3.1",
         "bootstrap-vue": "^2.0.0-rc.22",
         "core-js": "^2.6.5",
+        "elastos-wallet-js": "^1.0.9",
+        "lodash": "^4.17.11",
+        "socket.io-client": "^2.2.0",
+        "uuid": "^3.3.2",
         "v-clipboard": "^2.2.2",
         "vue": "^2.6.10",
-        "vue-router": "^3.0.6"
+        "vue-router": "^3.0.6",
+        "vue-socket.io": "^3.0.7"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.8.0",
@@ -34,7 +39,9 @@
             "plugin:vue/essential",
             "eslint:recommended"
         ],
-        "rules": {},
+        "rules": {
+            "no-console": "off"
+        },
         "parserOptions": {
             "parser": "babel-eslint"
         }

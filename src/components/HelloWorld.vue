@@ -35,7 +35,7 @@
 
       </b-row>
 
-      <b-row>请求协议： </b-row>
+      <b-row v-if="qrcode">请求协议： </b-row>
 
       <b-row  class="text-center" v-if="qrcode" style="margin-top:15px">
         <b-col cols="8">
@@ -53,7 +53,7 @@
         </b-col>
       </b-row>
 
-      <b-row>返回内容： </b-row>
+      <b-row v-if="returncode">返回内容： </b-row>
       <b-row class="text-center" v-if="returncode" style="margin-top:15px">
           <textarea class="ta" v-model="returncode" style="height:300px"></textarea>
       </b-row>
@@ -71,10 +71,26 @@
       msg: String
     },
     data(){
-      return{
-        stext:'{"appId":"23091883A390CCBFFFED4928F996936AFCEBB1B57192532D15271158F3A277FD1BB3309DA2719334CBE1DE7BA2408047E2786A94F370CE66C208159B3A8D1162","appName": "dopsvote.h5.app","appDid": "iZW9ozTSXk4ukRXx7vCTTFYebZHFwMUtz7","appDidPublicKey": "03128A35842DD061BD016B9B2913BE07028063E5A80365D713DB77508406E85815","callbackUrl": "https://elaphant.net/#/return_url","random": "998877"}',
-        qrcode:""
-      }
+     return{
+         stext1:'{"AppID":"23091883A390CCBFFFED4928F996936AFCEBB1B57192532D15271158F3A277FD1BB3309DA2719334CBE1DE7BA2408047E2786A94F370CE66C208159B3A8D1162","AppName": "dopsvote.h5.app","DID": "iZW9ozTSXk4ukRXx7vCTTFYebZHFwMUtz7","PublicKey": "03128A35842DD061BD016B9B2913BE07028063E5A80365D713DB77508406E85815","ReturnUrl": "https://elaphant.net/#/return_url","RequestInfo":"elaaddress"}',
+         stext:'{"AppID":"23091883A390CCBFFFED4928F996936AFCEBB1B57192532D15271158F3A277FD1BB3309DA2719334CBE1DE7BA2408047E2786A94F370CE66C208159B3A8D1162","AppName": "dopsvote.h5.app","DID": "iZW9ozTSXk4ukRXx7vCTTFYebZHFwMUtz7","PublicKey": "03128A35842DD061BD016B9B2913BE07028063E5A80365D713DB77508406E85815","CallbackUrl": "http://dbs.westus2.cloudapp.azure.com:8080/api/v1/didcallback","RequestInfo":"elaaddress,Email"}',
+         qrcode:"",
+         randomNumber:"",
+         returncode:"",
+     } 
+  },
+   sockets: {
+        connect: function () {
+            console.log('socket connected')
+        },
+        did: function (msg) {
+        console.log("=============="+JSON.stringify(msg));
+        let jsonData = JSON.parse(msg.data.Data);
+        if (jsonData.RandomNumber === this.randomNumber) {
+            let verified = this.$elastos.verify(msg.data.Data, msg.data.Sign, jsonData.PublicKey);
+            this.returncode = JSON.stringify(msg) + `\n\nVerified: ${verified}`
+        }
+        }
     },
     methods: {
       clipboardSuccessHandler ({ value, event }) {
@@ -86,12 +102,21 @@
       },
 
       buildRequestUserDataUrl(appConfig) {
-        const d = appConfig;
-
-        const rt = encodeURIComponent(d.callbackUrl);
-        const url = `elaphant://identity?ReturnUrl=${rt}&AppID=${d.appId}&PublicKey=${d.appDidPublicKey}&DID=${d.appDid}&RandomNumber=${d.random}&AppName=${d.appName}&RequestInfo=elaaddress`;
-        console.log('login schema1 => ' + url);
-        return url;
+         this.returncode = '';   
+         const d  = appConfig;
+         let url = "elaphant://identity?";
+         this.$lodsh.forIn(d, (v,k) => {
+           if(k==='CallbackUrl' || k==='ReturnUrl' || k==='RequestInfo'){
+                v = encodeURIComponent(v);
+            }
+            url += k+'='+v+'&';
+        });
+    this.randomNumber = this.$uuid();
+    this.randomNumber = this.randomNumber.replace(/-/g,'');
+    url += 'RandomNumber'+'='+this.randomNumber;
+    console.log("==this.randomNumber==="+this.randomNumber);
+    console.log('login schema1 => ' + url);
+    return url;
       },
       clear(){
         this.stext = "";
