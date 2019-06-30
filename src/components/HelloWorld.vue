@@ -73,11 +73,11 @@
     data(){
      return{
          stext1:'{"AppID":"23091883A390CCBFFFED4928F996936AFCEBB1B57192532D15271158F3A277FD1BB3309DA2719334CBE1DE7BA2408047E2786A94F370CE66C208159B3A8D1162","AppName": "dopsvote.h5.app","DID": "iZW9ozTSXk4ukRXx7vCTTFYebZHFwMUtz7","PublicKey": "03128A35842DD061BD016B9B2913BE07028063E5A80365D713DB77508406E85815","ReturnUrl": "https://elaphant.net/#/return_url","RequestInfo":"elaaddress"}',
-         stext:'{"AppID":"23091883A390CCBFFFED4928F996936AFCEBB1B57192532D15271158F3A277FD1BB3309DA2719334CBE1DE7BA2408047E2786A94F370CE66C208159B3A8D1162","AppName": "dopsvote.h5.app","DID": "iZW9ozTSXk4ukRXx7vCTTFYebZHFwMUtz7","PublicKey": "03128A35842DD061BD016B9B2913BE07028063E5A80365D713DB77508406E85815","CallbackUrl": "http://dbs.westus2.cloudapp.azure.com:8080/api/v1/didcallback","RequestInfo":"elaaddress,Email"}',
+         stext:'{"AppID":"552453550a0ad3ad6cedd21a7bd47d2a3049ebb17099e892d92b93f9bd72bdeed9a439806118358422f3cb957a1ddebdc768ff667c2bd7359063d79d1618bf9c","AppName": "dposvote.h5.app","DID": "iiJRtAn6wyHaMSDQPS9Kkft3iiNjH5tTmi","PublicKey": "02752F9483DF73C57EDEA1F84F2431DC1036B2643F9519E78CB660D8C332793EDC","CallbackUrl": "http://dbs.westus2.cloudapp.azure.com:8080/api/v1/didcallback","RequestInfo":"elaaddress,Email"}',
          qrcode:"",
          randomNumber:"",
          returncode:"",
-     } 
+     }
   },
    sockets: {
         connect: function () {
@@ -102,7 +102,7 @@
       },
 
       buildRequestUserDataUrl(appConfig) {
-         this.returncode = '';   
+         this.returncode = '';
          const d  = appConfig;
          let url = "elaphant://identity?";
          this.$lodsh.forIn(d, (v,k) => {
