@@ -32,7 +32,7 @@
         <b-col cols="1" class="text-right" style="margin-top:20px">
           <b-row style="margin-top:10px">
             <b-button variant="primary"
-              v-clipboard="stext"
+              v-clipboard:copy="stext"
               v-clipboard:success="clipboardSuccessHandler"
               v-clipboard:error="clipboardErrorHandler">复制
             </b-button>
@@ -60,7 +60,7 @@
         </b-col>
         <b-col cols="1">
           <b-button variant="primary"
-              v-clipboard="qrcode"
+              v-clipboard:copy="qrcode"
               v-clipboard:success="clipboardSuccessHandler"
               v-clipboard:error="clipboardErrorHandler">复制
           </b-button>

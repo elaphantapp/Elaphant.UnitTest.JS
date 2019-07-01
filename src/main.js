@@ -1,11 +1,11 @@
 import Vue from 'vue';
+import VueClipboard from 'vue-clipboard2'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import App from './App.vue';
 import router from './router';
 import VueQrcode from '@chenfengyuan/vue-qrcode';
-import Clipboard from 'v-clipboard';
 import VueSocketIO from 'vue-socket.io'
 import SocketIO from 'socket.io-client';
 import Elastos from "elastos-wallet-js";
@@ -13,7 +13,7 @@ import uuid from 'uuid/v1';
 import _ from 'lodash';
 Vue.config.productionTip = false;
 Vue.component(VueQrcode.name, VueQrcode);
-Vue.use(Clipboard);
+Vue.use(VueClipboard);
 Vue.use(BootstrapVue);
 Vue.prototype.$elastos = Elastos;
 Vue.prototype.$uuid = uuid;
