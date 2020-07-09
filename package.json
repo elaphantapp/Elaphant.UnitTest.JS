@@ -13,7 +13,7 @@
         "bootstrap-vue": "^2.0.0-rc.22",
         "core-js": "^2.6.5",
         "elastos-wallet-js": "^1.0.9",
-        "lodash": "^4.17.11",
+        "lodash": "^4.17.13",
         "socket.io-client": "^2.2.0",
         "uuid": "^3.3.2",
         "vue": "^2.6.10",
